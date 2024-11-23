@@ -13,7 +13,6 @@ $title = 'Halaman Login - Example';
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="mb-3">
                             <label for="email" class="form-label">{{ __('Email Address') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Masukkan Email" required autocomplete="email" autofocus>
