@@ -28,7 +28,7 @@ class ExampleDataController extends Controller
         $id = $request->input('id');
 
         // Gunakan query mentah tanpa parameter binding
-        $data = DB::select("SELECT * FROM latihan WHERE id = $id");
+        $data = DB::select("SELECT * FROM example_data WHERE id = $id");
 
         return response()->json($data);
     }
