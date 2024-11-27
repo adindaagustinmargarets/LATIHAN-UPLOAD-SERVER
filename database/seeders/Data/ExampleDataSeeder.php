@@ -14,7 +14,7 @@ class ExampleDataSeeder extends Seeder
     public function run(): void
     {
         DB::table('example_data')->insert([
-            'id' => '9d5909f3-07fb-4645-bec6-055feb2d0c99',
+            'id' => '1',
             'nama' => 'Agung',
             'alamat' => 'Bandung',
             'pekerjaan' => 'PNS',
