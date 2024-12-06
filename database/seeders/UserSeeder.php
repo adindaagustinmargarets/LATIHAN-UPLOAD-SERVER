@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'Akun Demo',
             'email' => 'mikozua45@gmail.com',
             'password' => bcrypt('users123'),
-            'kordinat' => null,
+            'nomor' => '6285741710084',
         ]);
     }
 }
