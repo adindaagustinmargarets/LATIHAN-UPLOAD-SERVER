@@ -8,7 +8,6 @@
 </head>
 
 <body>
-    <h1>Isi cronjob.log</h1>
     <pre style="background-color: #f9f9f9; padding: 15px; border: 1px solid #ddd;">
     {{ $logContent }}
     </pre>
