@@ -35,21 +35,10 @@ class LatihanController extends Controller
         // Path ke file cronjob.log
         $filePath = '/home/tes.latihanserver.my.id/cronjob.log';
 
-        // Debug untuk melihat apakah path benar
-        dd([
-            'filePath' => $filePath,
-            'fileExists' => file_exists($filePath),
-            'isReadable' => is_readable($filePath),
-        ]);
+        // Baca isi file
+        $logContent = file_get_contents($filePath);
 
-        if (file_exists($filePath)) {
-            $logContent = file_get_contents($filePath);
-            return view('cronjob.list-cronjob', compact('logContent'));
-        }
-
-        return response()->json([
-            'error' => 'File cronjob.log tidak ditemukan.',
-            'suggestion' => 'Pastikan file berada di path yang benar dan server memiliki izin membaca file tersebut.'
-        ], 404);
+        // Kembalikan isi file ke tampilan
+        return view('cronjob.list-cronjob', compact('logContent'));
     }
 }
