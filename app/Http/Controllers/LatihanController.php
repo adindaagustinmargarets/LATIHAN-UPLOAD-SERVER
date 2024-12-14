@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Notifikasi\Whatsapp;
 use App\Models\Latihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -19,12 +20,7 @@ class LatihanController extends Controller
             'nama' => $request->nama,
             'nomor' => $request->nomor,
         ]);
-        Http::post('https://wa-gateway.winnicode.com/api/create-message', [
-            'appkey' => 'abd173a5-eafc-494d-a7ec-691748a8bdf6',
-            'authkey' => 'vL2BtMG3Zmom1hlGGvHOdVoeRw8DyF9IIqAf77cle4Ldx3Lgjh',
-            'to' => $latihan->nomor,
-            'message' => 'Data Berhasil Di simpan di server',
-        ]);
+        Whatsapp::dispatch($latihan);
         return redirect()->back()->with('success', 'Berhasil Tamabh Data');
     }
     public function hapus($id)
