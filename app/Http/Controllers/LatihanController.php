@@ -44,7 +44,9 @@ class LatihanController extends Controller
             return view('cronjob.list-cronjob', compact('logContent'));
         }
 
-        // Jika file tidak ditemukan, tampilkan pesan error
-        return response()->json(['error' => 'File cronjob.log tidak ditemukan.'], 404);
+        return response()->json([
+            'error' => 'File cronjob.log tidak ditemukan.',
+            'suggestion' => 'Pastikan file berada di path yang benar dan server memiliki izin membaca file tersebut.'
+        ], 404);
     }
 }
