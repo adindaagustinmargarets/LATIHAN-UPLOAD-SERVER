@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
-            background-color: #1e1e1e;
+            background-color: rgb(255, 255, 255);
             /* Dark background for terminal-like effect */
             color: #f0f0f0;
             padding: 20px;
