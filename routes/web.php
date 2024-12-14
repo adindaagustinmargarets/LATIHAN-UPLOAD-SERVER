@@ -20,7 +20,6 @@ Route::get('/latihan', [App\Http\Controllers\LatihanController::class, 'index'])
 Route::post('/latihan', [App\Http\Controllers\LatihanController::class, 'tambah'])->name('latihan.tambah');
 Route::delete('/latihan/hapus/{id}', [App\Http\Controllers\LatihanController::class, 'hapus'])->name('latihan.hapus');
 Route::get('/list-cronjob', [App\Http\Controllers\LatihanController::class, 'cronjob']);
-Route::get('/send-cronjob-telegram', [App\Http\Controllers\LatihanController::class, 'sendCronjobToTelegram']);
 
 Route::get('/riwayat', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
 Route::post('/payment', [App\Http\Controllers\PaymentController::class, 'bayar'])->name('payments.bayar');
