@@ -22,6 +22,12 @@
                                 <input type="email" class="form-control" id="customer_email" name="customer_email" value="dummy@gmail.com" placeholder="Masukkan Email Aktif" required>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customer_nomor" class="form-label">Email Pelanggan</label>
+                                <input type="text" class="form-control" id="customer_email" name="customer_phone" value="6285741710084" placeholder="Masukkan Email Aktif" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label>Kategori pembayaraan</label>

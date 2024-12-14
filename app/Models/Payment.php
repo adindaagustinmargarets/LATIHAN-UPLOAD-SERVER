@@ -18,6 +18,7 @@ class Payment extends Model
         'status',
         'customer_name',
         'customer_email',
+        'customer_phone',
         'order_items',
         'paid_at',
         'payment_kategori'

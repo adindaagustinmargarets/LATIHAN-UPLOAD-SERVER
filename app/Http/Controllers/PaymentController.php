@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Notifikasi\Pembayaraan\TransaksiBerhasil;
 use App\Models\Latihan;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ class PaymentController extends Controller
             'amount' => 'required|numeric|min:10000',
             'customer_name' => 'required|string',
             'customer_email' => 'required|email',
+            'customer_phone' => 'required|string',
             'payment_method' => 'required|string',
             'payment_kategori' => 'required|string',
         ]);
@@ -48,6 +50,7 @@ class PaymentController extends Controller
             'amount' => $amount,
             'customer_name' => $request->customer_name,
             'customer_email' => $request->customer_email,
+            'customer_phone' => $request->customer_phone,
             'order_items' => [
                 [
                     'name' => 'Pembayaran Invoice',
@@ -73,6 +76,7 @@ class PaymentController extends Controller
                 'status' => 'PENDING',
                 'customer_name' => $request->customer_name,
                 'customer_email' => $request->customer_email,
+                'customer_phone' => $request->customer_phone,
                 'payment_kategori' => $request->payment_kategori,
                 'order_items' => json_encode($data['order_items']),
             ]);
@@ -153,13 +157,19 @@ class PaymentController extends Controller
 
         switch ($status) {
             case 'paid':
-                $payment->update(['status' => 'PAID', 'paid_at' => now()]);
+                $payment->update(['status' => 'BERHASIL', 'paid_at' => now()]);
+                break;
+            case 'unpaid':
+                $payment->update(['status' => 'PENDING']);
+                break;
+            case 'refund':
+                $payment->update(['status' => 'DIKEMBALIKAN']);
                 break;
             case 'expired':
-                $payment->update(['status' => 'expired']);
+                $payment->update(['status' => 'KADARLUWARSA']);
                 break;
             case 'failed':
-                $payment->update(['status' => 'failed']);
+                $payment->update(['status' => 'GAGAL']);
                 break;
             default:
                 return response()->json([
@@ -167,7 +177,7 @@ class PaymentController extends Controller
                     'message' => 'Unrecognized status',
                 ]);
         }
-
+        TransaksiBerhasil::dispatch($payment);
         return response()->json(['success' => true]);
     }
 }

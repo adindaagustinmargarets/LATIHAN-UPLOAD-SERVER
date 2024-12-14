@@ -28,8 +28,14 @@ $title = 'Payment Gateway';
                         <td>{{ $data->method }}</td>
                         <td>
                             @if($data->status == 'PENDING')
+                            <span class="badge text-bg-warning">{{ $data->status }}</span>
+                            @elseif($data->status == 'BERHASIL')
+                            <span class="badge text-bg-success">{{ $data->status }}</span>
+                            @elseif($data->status == 'GAGAL')
                             <span class="badge text-bg-danger">{{ $data->status }}</span>
-                            @elseif($data->status == 'PAID')
+                            @elseif($data->status == 'KADARLUWARSA')
+                            <span class="badge text-bg-danger">{{ $data->status }}</span>
+                            @elseif($data->status == 'DIKEMBALIKAN')
                             <span class="badge text-bg-success">{{ $data->status }}</span>
                             @endif
                         </td>

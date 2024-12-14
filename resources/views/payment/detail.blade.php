@@ -22,7 +22,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <strong>Status:</strong>
-                                    <span class="badge bg-{{ $payment->status === 'Paid' ? 'success' : ($payment->status === 'Pending' ? 'warning' : 'secondary') }}">
+                                    <span class="badge bg-{{ $payment->status === 'BERHASIL' ? 'success' : ($payment->status === 'PENDING' ? 'warning' : 'secondary') }}">
                                         {{ ucfirst($payment->status) }}
                                     </span>
                                 </li>
@@ -44,6 +44,10 @@
                                     {{ $payment->customer_name }}
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <strong>Phone:</strong>
+                                    {{ $payment->customer_phone }}
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <strong>Email:</strong>
                                     {{ $payment->customer_email }}
                                 </li>
@@ -52,7 +56,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="{{ route('payments.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('payments.index') }}" class="btn btn-primary">
                         <i class="fas fa-arrow-left me-2"></i> Kembali ke Daftar
                     </a>
                 </div>
