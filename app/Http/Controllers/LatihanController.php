@@ -33,14 +33,17 @@ class LatihanController extends Controller
     public function cronjob()
     {
         // Path ke file cronjob.log
-        $filePath = public_path('../cronjob.log');
+        $filePath = '/home/tes.latihanserver.my.id/cronjob.log';
 
-        // Periksa apakah file ada
-        if (File::exists($filePath)) {
-            // Baca isi file
-            $logContent = File::get($filePath);
+        // Debug untuk melihat apakah path benar
+        dd([
+            'filePath' => $filePath,
+            'fileExists' => file_exists($filePath),
+            'isReadable' => is_readable($filePath),
+        ]);
 
-            // Kembalikan isi file dalam tampilan
+        if (file_exists($filePath)) {
+            $logContent = file_get_contents($filePath);
             return view('cronjob.list-cronjob', compact('logContent'));
         }
 
