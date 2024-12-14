@@ -6,6 +6,7 @@ use App\Jobs\Notifikasi\Whatsapp;
 use App\Models\Latihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\File;
 
 class LatihanController extends Controller
 {
@@ -28,5 +29,22 @@ class LatihanController extends Controller
         $latihan = Latihan::find($id);
         $latihan->delete();
         return redirect()->back()->with('success', 'Berhasil Hapus Data');
+    }
+    public function cronjob()
+    {
+        // Path ke file cronjob.log
+        $filePath = public_path('cronjob.log');
+
+        // Periksa apakah file ada
+        if (File::exists($filePath)) {
+            // Baca isi file
+            $logContent = File::get($filePath);
+
+            // Kembalikan isi file dalam tampilan
+            return view('cronjob.list-cronjob', compact('logContent'));
+        }
+
+        // Jika file tidak ditemukan, tampilkan pesan error
+        return response()->json(['error' => 'File cronjob.log tidak ditemukan.'], 404);
     }
 }
