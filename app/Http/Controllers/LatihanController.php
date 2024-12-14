@@ -33,7 +33,7 @@ class LatihanController extends Controller
     public function cronjob()
     {
         // Path ke file cronjob.log
-        $filePath = public_path('cronjob.log');
+        $filePath = public_path('../cronjob.log');
 
         // Periksa apakah file ada
         if (File::exists($filePath)) {
