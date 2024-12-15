@@ -23,6 +23,7 @@ Route::get('/list-cronjob', [App\Http\Controllers\LatihanController::class, 'cro
 
 Route::get('/riwayat', [App\Http\Controllers\PaymentController::class, 'index'])->name('payments.index');
 Route::post('/payment', [App\Http\Controllers\PaymentController::class, 'bayar'])->name('payments.bayar');
+Route::get('/payment/cetak/{id}', [App\Http\Controllers\PaymentController::class, 'cetak'])->name('payments.cetak-pdf');
 Route::get('/payments/detail/{payment}', [App\Http\Controllers\PaymentController::class, 'detail'])->name('payments.detail');
 Route::delete('/payments/hapus/{id}', [App\Http\Controllers\PaymentController::class, 'delete'])->name('payments.delete');
 Route::post('/payment/callback', [App\Http\Controllers\PaymentController::class, 'paymentCallback'])->name('payments.callback');

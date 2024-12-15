@@ -21,11 +21,25 @@
                                     <span class="badge bg-success">{{ $payment->merchant_ref }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <strong>Status:</strong>
+                                    <strong>Status</strong>
                                     <span class="badge bg-{{ $payment->status === 'BERHASIL' ? 'success' : ($payment->status === 'PENDING' ? 'warning' : 'secondary') }}">
                                         {{ ucfirst($payment->status) }}
                                     </span>
                                 </li>
+                                @if($payment->method == 'QRIS2')
+                                <li class="list-group-item d-flex justify-content-end">
+                                    <img src="{{ $tripayData['qr_url'] }}" alt="QR Code" class="img-fluid" style="max-width: 150px; margin-left: auto;">
+                                </li>
+                                @else
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <strong>Transfer</strong>
+                                    {{ ($tripayData['payment_name'])}}
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <strong>Rekening</strong>
+                                    {{ ($tripayData['pay_code'])}}
+                                </li>
+                                @endif
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <strong>Biaya Admin</strong>
                                     Rp {{ number_format($tripayData['fee_customer'], 0, ',', '.') }}

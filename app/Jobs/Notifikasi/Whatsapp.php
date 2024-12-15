@@ -28,8 +28,8 @@ class Whatsapp implements ShouldQueue
     public function handle(): void
     {
         Http::post('https://wa-gateway.winnicode.com/api/create-message', [
-            'appkey' => 'abd173a5-eafc-494d-a7ec-691748a8bdf6',
-            'authkey' => 'vL2BtMG3Zmom1hlGGvHOdVoeRw8DyF9IIqAf77cle4Ldx3Lgjh',
+            'appkey' => env('WA_GATEWAY_APP'),
+            'authkey' => env('WA_GATEWAY_AUTH'),
             'to' => $this->latihan->nomor,
             'message' => "Data Berhasil Di simpan di server. Data Json: {{$this->latihan}}",
         ]);

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\Notifikasi\Pembayaraan\TransaksiBerhasil;
+use App\Mail\NotifikasiEmail;
 use App\Models\Latihan;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PaymentController extends Controller
 {
@@ -36,7 +41,6 @@ class PaymentController extends Controller
             'customer_email' => 'required|email',
             'customer_phone' => 'required|string',
             'payment_method' => 'required|string',
-            'payment_kategori' => 'required|string',
         ]);
 
         $merchantRef = 'INV-' . time();
@@ -77,7 +81,6 @@ class PaymentController extends Controller
                 'customer_name' => $request->customer_name,
                 'customer_email' => $request->customer_email,
                 'customer_phone' => $request->customer_phone,
-                'payment_kategori' => $request->payment_kategori,
                 'order_items' => json_encode($data['order_items']),
             ]);
 
@@ -99,6 +102,40 @@ class PaymentController extends Controller
             return view('payment.detail', compact('payment', 'tripayData'));
         } else {
             return back()->withErrors('Gagal mengambil detail transaksi.');
+        }
+    }
+    public function cetak($id)
+    {
+        try {
+            // Mengambil data pembayaran berdasarkan ID
+            $payment = Payment::findOrFail($id);
+
+            // Mengambil detail transaksi dari API Tripay
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->apiKey, // Pastikan $this->apiKey sudah diatur di controller
+            ])->get($this->apiUrl . '/transaction/detail', [
+                'reference' => $payment->tripay_reference, // Menggunakan reference dari Payment
+            ]);
+
+            // Periksa apakah request ke API Tripay berhasil
+            if ($response->successful()) {
+                $tripayData = $response->json()['data'];
+
+                // Memuat view PDF dengan data pembayaran dan tripayData
+                $pdf = PDF::loadView('PDF.bukti', compact('payment', 'tripayData'));
+
+                // Sanitasi nama file PDF
+                $filename = 'bukti_' . Str::slug($payment->customer_name) . '.pdf';
+
+                // Mengirimkan file PDF untuk diunduh
+                return $pdf->download($filename);
+            } else {
+                // Tangani error jika API gagal
+                return back()->withErrors('Gagal mengambil detail transaksi dari Tripay.');
+            }
+        } catch (\Exception $e) {
+            // Menangani error jika terjadi masalah lainnya
+            return redirect()->back()->with('error', 'Gagal mencetak bukti pembayaran: ' . $e->getMessage());
         }
     }
     public function getPaymentChannels()
@@ -178,6 +215,7 @@ class PaymentController extends Controller
                 ]);
         }
         TransaksiBerhasil::dispatch($payment);
+        Mail::to($payment->customer_email)->send(new NotifikasiEmail($payment));
         return response()->json(['success' => true]);
     }
 }

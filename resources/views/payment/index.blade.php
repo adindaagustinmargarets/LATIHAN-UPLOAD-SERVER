@@ -15,7 +15,6 @@ $title = 'Payment Gateway';
                         <th>No</th>
                         <th>Nama</th>
                         <th>Nominal</th>
-                        <th>Metode</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -25,7 +24,6 @@ $title = 'Payment Gateway';
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->customer_name }}</td>
                         <td>{{ $data->amount }}</td>
-                        <td>{{ $data->method }}</td>
                         <td>
                             @if($data->status == 'PENDING')
                             <span class="badge text-bg-warning">{{ $data->status }}</span>
@@ -43,6 +41,7 @@ $title = 'Payment Gateway';
                             <a href="{{ route('payments.detail', $data->id) }}" class="btn btn-primary">
                                 Detail
                             </a>
+                            <a href="{{ route('payments.cetak-pdf', $data->id) }}" class="btn btn-primary">cetak pdf</a>
                             <form action="{{ route('payments.delete', $data->id) }}" method="post">
                                 @csrf
                                 @method('delete')
