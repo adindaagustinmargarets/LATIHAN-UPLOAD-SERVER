@@ -29,22 +29,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="month" class="form-label">Pilih Bulan</label><br>
-
-                        <!-- Menggunakan radio button, hanya satu yang bisa dipilih -->
-                        <input type="radio" id="bulan1" name="bulan" value="1">
-                        <label for="bulan1">Bulan 1 (Rp 30,000)</label><br>
-
-                        <input type="radio" id="bulan2" name="bulan" value="2">
-                        <label for="bulan2">Bulan 2 (Rp 60,000)</label>
-                    </div>
 
                     <div class="mb-3">
                         <label for="amount" class="form-label">Jumlah</label>
                         <div class="input-group">
                             <span class="input-group-text">Rp</span>
-                            <input type="number" class="form-control" id="amount" name="amount" min="0" step="1000" value="30000" placeholder="Masukan Nominal" required readonly>
+                            <input type="number" class="form-control" name="amount" value="30000" placeholder="Masukan Nominal" required readonly>
                         </div>
                     </div>
 
@@ -68,25 +58,3 @@
         </div>
     </div>
 </div>
-<script>
-    // Ambil elemen radio button dan input amount
-    const bulan1Radio = document.getElementById('bulan1');
-    const bulan2Radio = document.getElementById('bulan2');
-    const amountInput = document.getElementById('amount');
-
-    // Fungsi untuk update nilai berdasarkan radio button
-    function updateAmount() {
-        // Jika radio button Bulan 1 dicentang, set amount ke 30000
-        if (bulan1Radio.checked) {
-            amountInput.value = 30000;
-        }
-        // Jika radio button Bulan 2 dicentang, set amount ke 6000
-        else if (bulan2Radio.checked) {
-            amountInput.value = 60000;
-        }
-    }
-
-    // Menambahkan event listener ke radio button untuk memanggil updateAmount ketika berubah
-    bulan1Radio.addEventListener('change', updateAmount);
-    bulan2Radio.addEventListener('change', updateAmount);
-</script>
