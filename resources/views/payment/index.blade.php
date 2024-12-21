@@ -1,4 +1,4 @@
-@extends('latihan.layouts.app')
+@extends('layouts.app')
 @section('content')
 @php
 $title = 'Payment Gateway';
