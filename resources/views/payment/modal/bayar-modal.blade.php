@@ -44,7 +44,7 @@
                         <label for="amount" class="form-label">Jumlah</label>
                         <div class="input-group">
                             <span class="input-group-text">Rp</span>
-                            <input type="number" class="form-control" id="amount" name="amount" min="0" step="1000" value="30000" placeholder="Masukan Nominal" required>
+                            <input type="number" class="form-control" id="amount" name="amount" min="0" step="1000" value="30000" placeholder="Masukan Nominal" required readonly>
                         </div>
                     </div>
 
