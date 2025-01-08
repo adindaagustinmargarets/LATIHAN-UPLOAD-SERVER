@@ -55,37 +55,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function sendPasswordResetNotification($token)
     {
-        $ip = request()->ip();
-        $locationData = $this->getLocationData($ip);
-        if (is_null($locationData)) {
-            $locationData = [
-                'latitude' => 'Tidak diketahui',
-                'longitude' => 'Tidak diketahui',
-                'city' => 'Tidak diketahui',
-            ];
-        }
-        Mail::to($this->email)->send(new ResetEmail($this, $token, $ip, $locationData));
-    }
-    private function getLocationData($ip)
-    {
-        try {
-            $response = file_get_contents("http://ip-api.com/json/{$ip}?fields=lat,lon,city,status");
-            $data = json_decode($response, true);
-
-            if ($data['status'] === 'success') {
-                return [
-                    'latitude' => $data['lat'],
-                    'longitude' => $data['lon'],
-                    'city' => $data['city'],
-                ];
-            }
-        } catch (\Exception $e) {
-            // Jika gagal, kembalikan nilai default
-            return [
-                'latitude' => 'Tidak diketahui',
-                'longitude' => 'Tidak diketahui',
-                'city' => 'Tidak diketahui',
-            ];
-        }
+        Mail::to($this->email)->send(new ResetEmail($this, $token));
     }
 }

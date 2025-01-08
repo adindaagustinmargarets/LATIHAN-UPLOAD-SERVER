@@ -13,12 +13,6 @@
         Reset Password
     </a>
     <p>Jika Anda tidak meminta reset password, abaikan email ini.</p>
-    <p>Permintaan reset password ini dilakukan dari:</p>
-    <ul>
-        <p>IP Address: <strong>{{ $ip ?? 'Tidak diketahui' }}</strong></p>
-        <p>Perkiraan Lokasi: <strong>{{ $locationData['city'] ?? 'Tidak diketahui' }}</strong></p>
-        <p>Koordinat: <strong>{{ $locationData['latitude'] ?? 'Tidak diketahui' }}, {{ $locationData['longitude'] ?? 'Tidak diketahui' }}</strong></p>
-    </ul>
 </body>
 
 </html>

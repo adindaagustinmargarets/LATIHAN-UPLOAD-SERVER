@@ -14,21 +14,17 @@ class ResetEmail extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
     public $user;
     public $resetemail;
-    public $ip;
-    public $locationData;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $token, $ip, $locationData)
+    public function __construct($user, $token)
     {
         $this->user = $user;
         $this->resetemail = url(route('password.reset', [
             'token' => $token,
             'email' => $user->email,
         ], false));
-        $this->ip = $ip;
-        $this->locationData = $locationData;
     }
 
     /**
@@ -51,8 +47,6 @@ class ResetEmail extends Mailable implements ShouldQueue
             with: [
                 'user' => $this->user,
                 'resetUrl' => $this->resetemail,
-                'ip' => $this->ip,
-                'locationData' => $this->locationData,
             ],
         );
     }
